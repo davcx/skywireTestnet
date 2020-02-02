@@ -55,5 +55,19 @@ echo "Installing services"
 
 #sh  ~/skywire-installer/servicesUpdate.sh
 
+cancellare se presente /etc/default/skywire.default
+modificare puntamento a manager
+spostare o verificare path contenente le chiavi $HOME/.skywire 
+SE manager Installare & start of manager unit file on systemd
+
+cp ${GOPATH}/src/github.com/SkycoinProject/skywire/static/script/upgrade/data/skywire-manager.service /etc/systemd/system/
+systemctl enable skywire-manager
+systemctl start skywire-manager
+
+Installare   & start of nodes unit file on systemd
+
+cp ${GOPATH}/src/github.com/SkycoinProject/skywire/static/script/upgrade/data/skywire-node.service /etc/systemd/system/
+systemctl enable skywire-node
+systemctl start skywire-node
 
 
