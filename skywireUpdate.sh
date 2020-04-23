@@ -2,7 +2,7 @@
 
 echo "GO installation and configuration"
 
-GOVERSION=go1.13.7.linux-arm64.tar.gz
+GOVERSION=go1.14.2.linux-arm64.tar.gz
 cd ~
 if [ -e $GOVERSION ] ; then
   echo "latest GO already installed"
