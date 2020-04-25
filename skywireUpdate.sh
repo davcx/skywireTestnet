@@ -19,7 +19,7 @@ else
 
   cd /usr/local/bin
   if [ -e go ] ; then
-    rm go godoc gofmt
+    rm -f go godoc gofmt
 
     ln -s /usr/local/go/bin/go /usr/local/bin/go
     ln -s /usr/local/go/bin/godoc /usr/local/bin/godoc
@@ -35,6 +35,38 @@ else
 fi
 
 echo "Skywire installation"
+
+add-apt-repository 'deb http://skyfleet.github.io/sky-update stretch main'
+curl -L http://skyfleet.github.io/sky-update/KEY.asc | apt-key add -
+
+apt update
+apt install skywire
+
+if [ -e /etc/skywire ] ; then
+  echo "create visor config file"
+  cd /etc/skywire
+  skywire-cli visor gen-config
+  
+  read -p "insert Hypervisor's PubKey", no spaces]?" PubKeyHyp
+  read -p "insert Hypervisor's PubKey", no spaces]?" PubKeyIP
+  
+  #sed -i 's+"enable_auth": false+"enable_auth": true+g' /etc/skywire/skywire-hypervisor.json
+  #sed -i 's+"hypervisors": [],+"hypervisors": [{"$PubKeyHyp","$PubKeyIP"}],+g' /etc/skywire/skywire-hypervisor.json2
+
+  systemctl daemon-reload
+  systemctl enable skywire-visor.service
+  else
+      echo "****path config file does not exist***"
+      echo "****please check correct pkg installation***"
+      
+fi
+
+
+
+
+
+
+
 
 if [ -e $GOPATH/src/github.com/SkycoinProject/skywire ] ; then
   echo "remove old SRC"
